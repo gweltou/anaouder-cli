@@ -110,4 +110,4 @@ Ar meziant-se zo bet diorroet o kemer harp war meziantoù dieub all : Kaldi, Vos
 Lakaat da bleustriñ ar model a zo bet posubl a-drugarez d'an danvez prizius, krouet ha rannet gant ur bern tud all : Becedia, Brezhoweb, Dastum, Dizale, Kaouen.net, Mozilla Common Voice, RKB hag Ofis Publik ar Brezhoneg\
 Trugarez da Elen Cariou, Jean-Mari Ollivier, Karen Treguier, Mélanie Jouitteau, Pêr Morvan hag An Drouizig evit o sikour hag o souten.
 
-https://user-images.githubusercontent.com/10166907/213805292-63becbe2-ffb5-492f-9bac-1330c4b2d07d.mp4
+https://github.com/user-attachments/assets/f0141546-f885-4503-8ca9-bc1e24b1e749
