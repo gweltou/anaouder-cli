@@ -1,66 +1,117 @@
-import os
-import typing
+"""
+Load various dictionaries from local resources
+
+The option should be given to load user dictionaries as well, stored in a system folder
+"""
+
+import sys
+# import os
+# import platform
+import importlib.resources
+
+
+# dict_root = importlib.resources.files("anaouder") / "dicts"
+
+# print(f"loading dicts in {dict_root}", file=sys.stderr)
 
 
 # Proper nouns dictionary
 # with phonemes when name has a foreign or particular pronunciations
 
-proper_nouns = dict()
-_proper_nouns_phon_path = __file__.replace("__init__.py", "proper_nouns_phon.tsv")
+def load_proper_nouns():
+    proper_nouns = dict()
+    proper_nouns_files = [
+        "proper_nouns_phon.tsv",
+        "places.tsv",
+        # "countries.tsv",
+        "last_names.tsv",
+        "first_names.tsv",
+    ]
 
-with open(_proper_nouns_phon_path, 'r', encoding='utf-8') as f:
-    for l in f.readlines():
-        l = l.strip()
-        if l.startswith('#') or not l: continue
-        w, *pron = l.split(maxsplit=1)
-        pron = pron if pron else []
-        
-        if w in proper_nouns and pron:
-            proper_nouns[w].append(pron[0])
-        else:
-            proper_nouns[w] = pron
+    # print(f"Loading proper nouns dictionaries", file=sys.stderr)
+    
+    for file in proper_nouns_files:
+        try:
+            # Use importlib.resources to access files within the package
+            with importlib.resources.files("anaouder.dicts").joinpath(file).open('r', encoding='utf-8') as f:
+                for l in f.readlines():
+                    l = l.strip()
+                    if l.startswith('#') or not l: continue
+                    w, *pron = l.split(maxsplit=1)
+                    pron = pron or []
+                    
+                    if w in proper_nouns and pron:
+                        if pron[0] not in proper_nouns[w]: # Avoid duplicate entries, which Kaldi hates
+                            proper_nouns[w].append(pron[0])
+                    else:
+                        proper_nouns[w] = pron
+        except FileNotFoundError:
+            print(f"Missing dictionary file {file}", file=sys.stderr)
+            continue
+    
+    return proper_nouns
+
+proper_nouns = load_proper_nouns()
 
 
 
-# Noun dictionary
+# Nouns dictionary
 # Things that you can count
 
-nouns_f = set()
-_nouns_f_path = __file__.replace("__init__.py", "noun_f.tsv")
+def load_nouns_f():
+    nouns_f = set()
+    filepath = "noun_f.tsv"
 
-with open(_nouns_f_path, 'r', encoding='utf-8') as f:
-    for l in f.readlines():
-        l = l.strip()
-        if l.startswith('#') or not l: continue
-        nouns_f.add(l)
+    try:
+        with importlib.resources.files("anaouder.dicts").joinpath(filepath).open('r', encoding='utf-8') as f:
+            
+            for l in f.readlines():
+                l = l.strip()
+                if l.startswith('#') or not l: continue
+                nouns_f.add(l)
+        
+        return nouns_f
+    except FileNotFoundError:
+        print(f"Missing dictionary file {filepath}", file=sys.stderr)
+
+nouns_f = load_nouns_f()
 
 
-nouns_m = set()
-_nouns_m_path = __file__.replace("__init__.py", "noun_m.tsv")
 
-with open(_nouns_m_path, 'r', encoding='utf-8') as f:
-    for l in f.readlines():
-        l = l.strip()
-        if l.startswith('#') or not l: continue
-        nouns_m.add(l)
+def load_nouns_m():
+    nouns_m = set()
+    filepath = "noun_m.tsv"
+
+    try:
+        with importlib.resources.files("anaouder.dicts").joinpath("noun_m.tsv").open('r', encoding='utf-8') as f:
+            for l in f.readlines():
+                l = l.strip()
+                if l.startswith('#') or not l: continue
+                nouns_m.add(l)
+        
+        return nouns_m
+    except FileNotFoundError:
+        print(f"Missing dictionary file {filepath}", file=sys.stderr)
+
+nouns_m = load_nouns_m()
 
 
 
 # Acronyms dictionary
 
-_acronyms_path = __file__.replace("__init__.py", "acronyms.tsv")
-
-def get_acronyms_dict():
+def load_acronyms():
     """
-        Acronyms are stored in UPPERCASE in dictionary
-        Values are lists of strings for all possible pronunciation of an acronym
+    Acronyms are stored in UPPERCASE in dictionary
+    Values are lists of strings for all possible pronunciation of an acronym
     """
     acronyms = dict()
+    filepath = "acronyms.tsv"
+
     # for l in "BCDFGHIJKLMPQRSTUVWXZ":
     #     acronyms[l] = [acr2f[l]]
     
-    if os.path.exists(_acronyms_path):
-        with open(_acronyms_path, 'r', encoding='utf-8') as f:
+    try:
+        with importlib.resources.files("anaouder.dicts").joinpath(filepath).open('r', encoding='utf-8') as f:
             for l in f.readlines():
                 l = l.strip()
                 if l.startswith('#') or not l: continue
@@ -69,38 +120,106 @@ def get_acronyms_dict():
                     acronyms[acr].append(pron)
                 else:
                     acronyms[acr] = [pron]
-    else:
-        print("Acronym dictionary not found... creating file")
-        open(_acronyms_path, 'a', encoding='utf-8').close()
+    except FileNotFoundError:
+        print(f"Missing dictionary file {filepath}", file=sys.stderr)
+    
     return acronyms
 
-acronyms = get_acronyms_dict()
+acronyms = load_acronyms()
 
+
+
+# Abbreviations
+
+def load_abbreviations():
+    abbreviations = dict()
+    filepath = "abbreviations.tsv"
+
+    try:
+        with importlib.resources.files("anaouder.dicts").joinpath(filepath).open('r', encoding='utf-8') as f:
+            for l in f.readlines():
+                l = l.strip()
+                if l.startswith('#') or not l: continue
+                k, v = l.split('\t')
+                # v = v.split()
+                abbreviations[k] = v
+    except FileNotFoundError:
+        print(f"Missing dictionary file {filepath}", file=sys.stderr)
+    
+    return abbreviations
+
+abbreviations = load_abbreviations()
+
+
+# Interjections
+
+def load_interjections():
+    """
+    Acronyms are stored in UPPERCASE in dictionary
+    Values are lists of strings for all possible pronunciation of an acronym
+    """
+    interjections = dict()
+    filepath = "interjections.tsv"
+    
+    try:
+        with importlib.resources.files("anaouder.dicts").joinpath(filepath).open('r', encoding='utf-8') as f:
+            for l in f.readlines():
+                l = l.strip()
+                if l.startswith('#') or not l: continue
+                interj, *pron = l.split(maxsplit=1)
+                pron = pron if pron else []
+
+                if interj in interjections and pron:
+                    interjections[interj].append(pron)
+                else:
+                    interjections[interj] = pron
+    except FileNotFoundError:
+        print(f"Missing dictionary file {filepath}", file=sys.stderr)
+
+    return interjections
+
+interjections = load_interjections()
 
 
 # Common word mistakes
 
-corrected_tokens = dict()
-_corrected_tokens_path = __file__.replace("__init__.py", "corrected_tokens.tsv")
+def load_corrected_tokens():
+    corrected_tokens = dict()
+    filepath = "corrected_tokens.tsv"
 
-with open(_corrected_tokens_path, 'r', encoding='utf-8') as f:
-    for l in f.readlines():
-        l = l.strip()
-        if l.startswith('#') or not l: continue
-        k, v = l.split('\t')
-        v = v.split()
-        corrected_tokens[k] = v
+    try:
+        with importlib.resources.files("anaouder.dicts").joinpath(filepath).open('r', encoding='utf-8') as f:
+            for l in f.readlines():
+                l = l.strip()
+                if l.startswith('#') or not l: continue
+                k, v = l.split('\t')
+                v = v.split()
+                corrected_tokens[k] = v
+    except FileNotFoundError:
+        print(f"Missing dictionary file {filepath}", file=sys.stderr)
+    
+    return corrected_tokens
+
+corrected_tokens = load_corrected_tokens()
 
 
 # Standardization tokens
 
-standard_tokens = dict()
-_standard_tokens_path = __file__.replace("__init__.py", "standard_tokens.tsv")
+def load_standard_tokens():
+    standard_tokens = dict()
+    filepath = "standard_tokens.tsv"
 
-with open(_standard_tokens_path, 'r', encoding='utf-8') as f:
-    for l in f.readlines():
-        l = l.strip()
-        if l.startswith('#') or not l: continue
-        k, v = l.split('\t')
-        v = v.split()
-        standard_tokens[k] = v
+    try:
+        with importlib.resources.files("anaouder.dicts").joinpath(filepath).open('r', encoding='utf-8') as f:
+            for l in f.readlines():
+                l = l.strip()
+                if l.startswith('#') or not l: continue
+                k, v = l.split('\t')
+                v = v.split()
+                standard_tokens[k] = v
+    except FileNotFoundError:
+        print(f"Missing dictionary file {filepath}", file=sys.stderr)
+    
+    return standard_tokens
+
+standard_tokens = load_standard_tokens()

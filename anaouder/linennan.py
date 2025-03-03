@@ -24,17 +24,17 @@ import static_ffmpeg
 import os.path
 from time import perf_counter
 
-from anaouder.asr.models import load_model, DEFAULT_MODEL
+from anaouder.asr.models import load_model, get_latest_model
 from anaouder.asr.recognizer import transcribe_file_timecoded
 from anaouder.asr.post_processing import verbal_fillers
-# from anaouder.asr.dataset import create_ali_file
+from anaouder.asr.dataset import format_timecode
 from anaouder.text import (
     pre_process, filter_out_chars,
     sentence_stats,
     normalize_sentence, split_sentences,
     PUNCTUATION
 )
-from anaouder.utils import read_file_drop_comments, format_timecode
+from anaouder.utils import read_file_drop_comments
 from anaouder.version import VERSION
 
 
@@ -169,7 +169,7 @@ def main_linennan() -> None:
         description = "Create a timecoded file (`srt`, `seg` or `ali` file) from an audio file and a text file")
     parser.add_argument("audio_file")
     parser.add_argument("text_file")
-    parser.add_argument("-m", "--model", default=DEFAULT_MODEL,
+    parser.add_argument("-m", "--model", default=get_latest_model("vosk"),
         help="Vosk model to use for decoding", metavar='MODEL_PATH')
     parser.add_argument("-t", "--type", choices=["srt", "seg", "ali"],
         help="file output type")

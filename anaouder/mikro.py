@@ -8,9 +8,9 @@ import sounddevice as sd
 import static_ffmpeg
 from vosk import KaldiRecognizer
 
-from anaouder.asr.models import load_model, DEFAULT_MODEL
+from anaouder.asr.models import load_model, get_latest_model
 from anaouder.asr.post_processing import post_process_text
-from anaouder.text import tokenize, detokenize, load_translation_dict, translate
+from anaouder.text import tokenize, detokenize
 from anaouder.version import VERSION
 
 
@@ -32,8 +32,6 @@ def callback(indata, frames, time, status):
 
 def format_output(sentence, normalize=False, keep_fillers=False):
 	sentence = post_process_text(sentence, normalize, keep_fillers)
-	for td in translation_dicts:
-		sentence = detokenize( translate(tokenize(sentence), td) )
 	return sentence
 
 
@@ -41,7 +39,6 @@ def main_mikro() -> None:
 	""" mikro cli entry point """
 
 	global q
-	global translation_dicts
 
 	parser = argparse.ArgumentParser(add_help=False)
 	parser.add_argument('-l', '--list-devices', action='store_true',
@@ -56,7 +53,7 @@ def main_mikro() -> None:
 		parents=[parser])
 	parser.add_argument("-o", "--output", type=str, metavar='FILENAME',
 		help='text file to store transcriptions')
-	parser.add_argument('-m', '--model', type=str, metavar='MODEL_PATH', default=DEFAULT_MODEL,
+	parser.add_argument('-m', '--model', type=str, metavar='MODEL_PATH', default=get_latest_model("vosk"),
 		help='Path to the model')
 	parser.add_argument('-d', '--device', type=int_or_str,
 		help='input device (numeric ID or substring)')
@@ -84,10 +81,6 @@ def main_mikro() -> None:
 
 		model = load_model(args.model)
 
-		translation_dicts = []
-		if args.translate:
-			translation_dicts = [ load_translation_dict(path) for path in args.translate ]
-
 		if args.output:
 			dump_fn = open(args.output, "w")
 		else:
@@ -106,7 +99,7 @@ def main_mikro() -> None:
 					if rec.AcceptWaveform(data):
 						result = eval(rec.Result())["text"]
 						if len(result) > 0:
-							formatted = format_output(result, normalize=args.normalize, keep_fillers=args.keep_fillers)
+							formatted = format_output(result, normalize=not args.normalize, keep_fillers=args.keep_fillers)
 							print(formatted)
 							if dump_fn:
 								dump_fn.write(formatted+'\n')

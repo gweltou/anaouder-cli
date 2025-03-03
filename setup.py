@@ -49,8 +49,11 @@ setup(
             "asr/postproc_sub.tsv",
             "dicts/acronyms.tsv",
             "dicts/corrected_tokens.tsv",
+            "dicts/first_names.tsv",
+            "dicts/last_names.tsv",
             "dicts/noun_f.tsv",
             "dicts/noun_m.tsv",
+            "dicts/places.tsv",
             "dicts/proper_nouns_phon.tsv",
             "dicts/standard_tokens.tsv",
         ]
@@ -58,9 +61,9 @@ setup(
     data_files=[('', ["README.md", "README-fr.md", "CHANGELOG.md"])],
     entry_points={
         "console_scripts": [
-            "adskrivan = anaouder:main_adskrivan",
-            "linennan = anaouder:main_linennan",
-            "istitlan = anaouder:main_istitlan",
+            "adskrivan = anaouder.adskrivan:main_adskrivan",
+            "linennan = anaouder.linennan:main_linennan",
+            "istitlan = anaouder.istitlan:main_istitlan",
             "mikro = anaouder:main_mikro",
             "normalizan = anaouder:main_normalizan",
         ],

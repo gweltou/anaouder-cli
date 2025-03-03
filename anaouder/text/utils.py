@@ -4,9 +4,8 @@ from .definitions import LETTERS, PUNCTUATION
 
 
 
-
 def strip_punct(word: str) -> str:
-    """ strip punctuation left and right of a word """
+    """ Strip punctuation left and right of a word """
 
     while word and word[0] in PUNCTUATION:
         word = word[1:]
@@ -17,7 +16,7 @@ def strip_punct(word: str) -> str:
 
 
 def filter_out_chars(text: str, chars: str) -> str:
-    """ Remove characters from a string """
+    """ Remove given characters from a string """
 
     filtered_text = ""
     for l in text:
@@ -26,9 +25,30 @@ def filter_out_chars(text: str, chars: str) -> str:
 
 
 
+def filter_in_chars(text: str, allowed_chars: str) -> str:
+    """ Remove all characters that are not in allowed list """
+
+    filtered_text = []
+    for c in text:
+        if c in allowed_chars: filtered_text.append(c)
+    return ''.join(filtered_text)
+
+
+
+def is_capitalized(word: str) -> bool:
+    return word.istitle()
+
+
+
 def capitalize(word: str) -> str:
-    """ Capitalize a single word or the first word of a given sentence """
-    # Should we capitalize the whole "C'H" character ? For now we don't.
+    """
+        Capitalize a single word or the first word of a given sentence
+    
+        TODO:
+            * Capitalize compound names, i.e "marie-thérèse" -> "Marie-Thérèse"
+        
+        Should we capitalize the whole "C'H" character ? For now we don't.
+    """
 
     # Find first letter
     lowered = word.lower()
@@ -58,48 +78,33 @@ def extract_parenthesis_content(txt: str) -> Tuple[str, str]:
 
 
 def pre_process(text: str) -> str:
-    text = text.replace('‘', "'")
+    """ Correct ambiguous quote characters, tilde and such """
+
+    skrab = '\''
+    # text = text.replace("c'h", f"c{skrab}h")
+    # text = text.replace("C'h", f"C{skrab}h")
+    # text = text.replace("C'H", f"C{skrab}H")
+    text = text.replace('‘', skrab)
     text = text.replace('’', "'")
-    text = text.replace('ʼ', "'")
+    text = text.replace('ʼ', skrab)
     text = text.replace(',', ',')
     text = text.replace('˜', '') # Found instead of non-breakable spaces when parsing Ya! pdfs
     text = text.replace('Š', '') # Found instead of long dashes when parsing Ya! pdfs
     text = text.replace('ñ', 'ñ') # A sneaky n-tilde (found in Ya! webpages)
     text = text.replace('ň', 'ñ')
+    text = text.replace('ñ̃', 'ñ') # Found in brezhoweb subtitles
     text = text.replace('ù', 'ù') # Another sneaky one (found in Ya! webpages)
+    text = text.replace('ê', 'ê') # Found in brezhoweb subtitles
+    text = text.replace('û', 'û') # Found in brezhoweb subtitles
+    text = text.replace('ı', 'i') # Found in #Brezhoneg newspaper
+    text = text.replace('ã', 'a')
+    text = text.replace('ö', 'o')
+    text = text.replace('á', 'a')
     return text
 
 
-
-def fix_clitic(text: str) -> str:
-    """ Do not use ! """
-    
-    text = text.replace("d' ", "d'")
-    # text = text.replace("n' ", "n'")
-
-    text = text.replace("n'eus ", "'n eus ")
-    text = text.replace("n'int ", "n' int ")
-    text = text.replace("n'eo ", "n' eo ")
-    text = text.replace("n'hon ", "n' hon ")
-    text = text.replace("n'ez ", "n' ez ")
-    text = text.replace("n'em ", "n' em ")
-    text = text.replace("n'am ", "n' am ")
-    text = text.replace("n'en ", "n' en ")
-    text = text.replace("n'o ", "n' o ")
-    text = text.replace("n'on ", "n' on ")
-    text = text.replace("n'he ", "n' he ")
-    text = text.replace("n'edo ", "n' edo ")
-    text = text.replace("n'emañ ", "n' emañ ")
-    text = text.replace("n'anavezan ", "n' anavezan ")
-    text = text.replace("n'ouzer ", "n' ouzer ")
-    text = text.replace("n'ouzon ", "n' ouzon ")
-    # n'oc'h
-    # n'omp
-
-
-
 def sentence_stats(sentence: str) -> dict:
-    """ Get statistics about a string """
+    """ Get statistics about a text """
     
     letter = 0
     decimal = 0

@@ -9,18 +9,18 @@ from ..utils import read_file_drop_comments
 # Verbal fillers with phonetization
 
 verbal_fillers = {
-    'euh'   :   'OE',
-    'euhm'  :   'OE M',
+    'boñ'   :   'B ON',
+    'bah'   :   'B A',
     'beñ'   :   'B EN',
     'beh'   :   'B E',
-    'eba'   :   'E B A',
+    'euh'   :   'OE',
+    'euhm'  :   'OE M',
+    'ebah'   :   'E B A',
     'ebeñ'  :   'E B EN',
+    'feñ'   :   'F EN',
     'kwa'   :   'K W A',
     'hañ'   :   'H AN',
     'heñ'   :   'EN',
-    'boñ'   :   'B ON',
-    'bah'   :   'B A',
-    'feñ'   :   'F EN',
     'enfin' :   'AN F EN',
     'tiens' :   'T I EN',
     'alors' :   'A L OH R',
@@ -29,8 +29,8 @@ verbal_fillers = {
     'pff'   :   'P F F',
     'mais'  :   'M EH',
     'hmm'   :   'M M',
-    #'oh'    :   'O',
-    #'ah'    :   'A',
+    # 'oh'    :   'O',
+    # 'ah'    :   'A',
 }
 
 
@@ -79,7 +79,7 @@ def post_process_text(sentence: str, normalize=False, keep_fillers=True) -> str:
             if not word.lower() in verbal_fillers:
                 parsed.append(word)
         sentence = ' '.join(parsed)
-
+    
     sentence = apply_post_process_dict_text(sentence, _postproc_dict)
     
     # Add hyphens for "-se" and "-mañ"
@@ -87,6 +87,8 @@ def post_process_text(sentence: str, normalize=False, keep_fillers=True) -> str:
     parsed = []
     prev_word = ''
     for word in sentence:
+        if not keep_fillers and word.lower() in verbal_fillers:
+            continue
         if word in ("se", "mañ") and is_noun(prev_word):
             parsed.append('-'.join([parsed.pop(), word]))
             prev_word = parsed[-1]
@@ -101,13 +103,12 @@ def post_process_text(sentence: str, normalize=False, keep_fillers=True) -> str:
     return sentence
 
 
-
 def post_process_timecoded(
         tokens: List[dict],
         normalize=False,
         keep_fillers=True) -> List[dict]:
     """ Apply post-processing on Vosk formatted result (keeping timecodes)
-
+        
         Add hypens (-se, -mañ)
         Common words substitution  (optional)
         Inverse-normalization      (optional)
@@ -116,7 +117,7 @@ def post_process_timecoded(
     # Verbal fillers removal
     if not keep_fillers:
         parsed = []
-        for idx, tok in enumerate(tokens):
+        for _, tok in enumerate(tokens):
             if not tok["word"].lower() in verbal_fillers:
                 parsed.append(tok)
         tokens = parsed
@@ -125,18 +126,19 @@ def post_process_timecoded(
 
     # Add hyphens for "-se" and "-mañ"
     parsed = []
-    prev_word = ''
-    for idx, tok in enumerate(tokens):
-        if tok["word"] in ("se", "mañ") and is_noun(prev_word):
-            word = prev_word + '-' + tok["word"]
+    for _, tok in enumerate(tokens):
+        # if not keep_fillers and tok["word"].lower() in verbal_fillers:
+        #     continue
+        if tok["word"] in ("se", "mañ") and len(parsed) > 0 and is_noun(parsed[-1]["word"]):
+            word = parsed[-1]["word"] + '-' + tok["word"]
             new_token = {
                         "word": word,
-                        "start": tokens[idx-1]["start"],
+                        "start": parsed[-1]["start"],  # Use start from last parsed token
                         "end": tok["end"],
                         "conf": tok["conf"]
                         }
+            parsed.pop()
             parsed.append(new_token)
-            prev_word = word
         else:
             parsed.append(tok)
     tokens = parsed
@@ -145,7 +147,6 @@ def post_process_timecoded(
         tokens = apply_post_process_dict_timecoded(tokens, _inorm_units_dict)
         tokens = inverse_normalize_timecoded(tokens)
     return tokens
-
 
 
 def apply_post_process_dict_text(sentence: str, ngram_dicts: List[dict]=_postproc_dict) -> str:
