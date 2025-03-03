@@ -7,10 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] 2025-03-02
+
+- Sync with online model database.
+- JSON output in `adskrivan` (with `-t json` option).
+- New audio segmentation algorithm.
+- Inverse-normalize option is set by default.
+- Fixed absent hyphens from subtitles.
+- Updated dictionaries.
+- Removed `--translate` option from `mikro`.
+
 ## [0.9.8] - 2024-11-7
 
 - Changed option `--max_words_per_line` to `--max-words-per-line`
-- Fixed utf-8 decoding of dictionaries on macOS
+- Fixed utf-8 decoding of dictionaries on macOS.
 
 ## [0.9.6]
 

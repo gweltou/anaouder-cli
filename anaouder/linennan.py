@@ -214,6 +214,7 @@ def main_linennan() -> None:
     
     sentences = [ " ".join(line.lower().replace('-', ' ').split()) for line in sentences ]
 
+    print("Transcribing audio file...", flush=True)
     hyp = transcribe_file_timecoded(args.audio_file)
     if not args.keep_fillers:
         print("Removing verbal fillers", file=sys.stderr)

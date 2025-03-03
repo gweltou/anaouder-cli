@@ -49,13 +49,13 @@ Gant an urzh `adskrivan` en un terminal, e vo adskrivet ar pezh e vez komprenet 
 adskrivan RESTR_SON_PE_VIDEO
 ```
 
-Dre ziouer, adskrivet e vo pep tra e diabarzh an terminal. Gallout a rit ivez implij an opsion `-o` evit resisaat anv ur restr, e lec'h ma vo skrivet an titouroù. Tu zo implij an option-se gant an holl urzhioù eus ar meziant.
+Dre ziouer, adskrivet e vo pep tra e diabarzh an terminal. Gallout a rit ivez implij an opsion `-o` evit resisaat anv ur restr, e lec'h ma vo skrivet an titouroù. Tu zo implij an opsion-se gant an holl urzhioù eus ar meziant.
 
 ```bash
 adskrivan RESTR_SON_PE_VIDEO -o DISOC'H.txt
 ```
 
-Evit kaout listennad an opsionoù, implijit an opsioñ `-h`.
+Evit kaout listennad an opsionoù, implijit an opsion `-h`.
 
 ## Adskrivañ istitloù evit ur video
 

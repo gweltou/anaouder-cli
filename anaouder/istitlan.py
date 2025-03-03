@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from anaouder import main_adskrivan
+from anaouder.adskrivan import main_adskrivan
 
 
 def main_istitlan():
