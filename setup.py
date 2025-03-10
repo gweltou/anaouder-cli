@@ -56,6 +56,7 @@ setup(
             "dicts/places.tsv",
             "dicts/proper_nouns_phon.tsv",
             "dicts/standard_tokens.tsv",
+            "text/moses_br.txt",
         ]
     },
     data_files=[('', ["README.md", "README-fr.md", "CHANGELOG.md"])],
@@ -64,8 +65,8 @@ setup(
             "adskrivan = anaouder.adskrivan:main_adskrivan",
             "linennan = anaouder.linennan:main_linennan",
             "istitlan = anaouder.istitlan:main_istitlan",
-            "mikro = anaouder:main_mikro",
-            "normalizan = anaouder:main_normalizan",
+            "mikro = anaouder.mikro:main_mikro",
+            "normalizan = anaouder.normalizan:main_normalizan",
         ],
     },
 )

@@ -1,0 +1,12 @@
+static-ffmpeg
+sounddevice
+vosk
+srt
+jiwer
+audioop-lts; python_version>='3.13'
+pydub>=0.25.1
+pytz
+tqdm==4.64.1
+certifi
+colorama
+sentence-splitter
