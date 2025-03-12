@@ -469,7 +469,7 @@ def create_eaf(segments, sentences, audiofile, type="wav"):
     doc = minidom.Document()
 
     root = doc.createElement('ANNOTATION_DOCUMENT')
-    root.setAttribute('AUTHOR', f'Anaouder {VERSION} (Gweltaz DG)')
+    root.setAttribute('AUTHOR', f'Anaouder {VERSION}')
     root.setAttribute('DATE', datetime.datetime.now(pytz.timezone('Europe/Paris')).isoformat(timespec='seconds'))
     root.setAttribute('FORMAT', '3.0')
     root.setAttribute('VERSION', '3.0')
@@ -494,6 +494,7 @@ def create_eaf(segments, sentences, audiofile, type="wav"):
     time_order = doc.createElement('TIME_ORDER')
     last_t = 0
     for i, (s, e) in enumerate(segments):
+        s, e = int(s*1000), int(e*1000)
         if s < last_t:
             s = last_t
         last_t = s
