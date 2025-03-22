@@ -12,20 +12,22 @@ Gallout a reer ivez implijout ar meziant dre ur [c'hetal Web](https://translate.
 
 ## Petra eo ?
 
-Un anaouder mouezh emgefre, diazezet war [Vosk](https://github.com/alphacep/vosk-api).\
+Un anaouder mouezh emgefreek, diazezet war [Vosk](https://github.com/alphacep/vosk-api).\
 Gantañ e c'heller adskrivañ komzoù e brezhoneg (**Son -> Skrid**) dre ur mikro, e amzer real, pe diouzh restroù son.
 
 Perzhioù dedennus :
 
 * **Skañv**. Pouezh ar model a zo dindan 100 Mo ha treiñ a ra war ur bern mekanikoù : urzhiataerioù **hep GPU**, RaspberryPi, hezoug Android...
 * **Prim**. Gallout a reer adskrivañ ar son e **amzer real**, memes gant un urzhiataer kozh, pe primoc'h c'hoazh gant dafar nevesoc'h.
-* **Lec'hel**. Ezhomm ebet eus an Internet. Ho mouezh hag **ho data a chomo war ho penveg**, ha tretet e vint gant ho penveg nemetken. Kudenn surentez ebet liammet d'an treuzkas dre rouedad ha gwelloc'h a-fed ekologel.
+* **Lec'hel**. Ezhomm ebet eus an Internet. Ho mouezh hag **ho roadennoù a chomo war ho penveg**, ha tretet e vint gant ho penveg nemetken. Kudenn surentez ebet liammet d'an treuzkas dre rouedad ha gwelloc'h a-fed ekologel.
 * **Digoust ha dieub**. Gellout a reoc'h azasaat ar meziant d'hoc'h ezhommoù pe enframmañ anezhañ e meziantoù all.
 
 Gwellaet e vo efedusted an anaouder tamm-ha-tamm, gant ma vo kavet roadennoù mouezh adskrivet.\
 Ul lisañs dieub (doare [Creative Commons](https://creativecommons.org/licenses/)) a aotrefe eskemm ar roadennoù-se en un doare aes.
 
 Deuit e darempred ganin m'ho peus c'hoant kemer perzh !
+
+https://github.com/user-attachments/assets/f0141546-f885-4503-8ca9-bc1e24b1e749
 
 ## Staliañ
 
@@ -109,5 +111,3 @@ Ar mod-implij a c'heller kavout [amañ](https://docs.kdenlive.org/en/effects_and
 Ar meziant-se zo bet diorroet o kemer harp war meziantoù dieub all : Kaldi, Vosk ha difazier [Hunspell](https://github.com/Drouizig/hunspell-br) an Drouizig (evit naetaat an testennoù a-raok ar pleustr).\
 Lakaat da bleustriñ ar model a zo bet posubl a-drugarez d'an danvez prizius, krouet ha rannet gant ur bern tud all : Becedia, Brezhoweb, Dastum, Dizale, Kaouen.net, Mozilla Common Voice, RKB hag Ofis Publik ar Brezhoneg\
 Trugarez da Elen Cariou, Jean-Mari Ollivier, Karen Treguier, Mélanie Jouitteau, Pêr Morvan hag An Drouizig evit o sikour hag o souten.
-
-https://github.com/user-attachments/assets/f0141546-f885-4503-8ca9-bc1e24b1e749
