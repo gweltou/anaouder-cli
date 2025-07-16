@@ -3,7 +3,7 @@
 
 # Anaouder mouezh e brezhoneg gant Vosk
 
-[Version française](https://github.com/gweltou/vosk-br/blob/main/README-fr.md)
+<img src="assets/gwenn_ha_du_128x85.png" alt="Breton flag" width="16" /> E brezhoneg | 🇫🇷 [ Lire en français](README-fr.md) | 🇬🇧 [Read in English](./README-en.md)
 
 Diorroet eo ar raktres-se a youl vat. Gallout a rit reiñ ho souten gant ur roadenn :
 [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/gweltou/donate)
