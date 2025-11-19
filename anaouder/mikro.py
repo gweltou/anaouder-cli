@@ -65,6 +65,7 @@ def main_mikro() -> None:
 		help="Use additional translation dictionaries")
 	parser.add_argument("--keep-fillers", action="store_true",
 		help="Keep verbal fillers ('euh', 'beñ', 'alors', 'kwa'...)")
+	parser.add_argument("--return-after", action="store_true", help="program returns after the first and only utterance")
 	parser.add_argument("-v", "--version", action="version", version=f"%(prog)s v{VERSION}")
 	args = parser.parse_args(remaining)
 
@@ -88,9 +89,7 @@ def main_mikro() -> None:
 
 		with sd.RawInputStream(samplerate=args.samplerate, blocksize = 1024, device=args.device, dtype='int16',
 								channels=1, latency='high', callback=callback):
-				print('#' * 80)
-				print('Press Ctrl+C to stop the recording')
-				print('#' * 80)
+				print('[Press Ctrl+C to stop the recording]', file=sys.stderr)
 				
 				rec = KaldiRecognizer(model, args.samplerate)
 				
@@ -103,6 +102,8 @@ def main_mikro() -> None:
 							print(formatted)
 							if dump_fn:
 								dump_fn.write(formatted+'\n')
+							if args.return_after:
+								break
 
 	except KeyboardInterrupt:
 		print('\nDone')
