@@ -1,14 +1,14 @@
 [![pypi version](https://img.shields.io/pypi/v/anaouder)](https://pypi.org/project/anaouder/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
-# Anaouder mouezh e brezhoneg gant Vosk
+# anaouder-cli
 
 <img src="assets/gwenn_ha_du_128x85.png" alt="Breton flag" width="16" /> E brezhoneg | 🇫🇷 [ Lire en français](README-fr.md) | 🇬🇧 [Read in English](./README-en.md)
 
 Diorroet eo ar raktres-se a youl vat. Gallout a rit reiñ ho souten gant ur roadenn :
 [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/gweltou/donate)
 
-Gallout a reer ivez implijout ar meziant dre ur [c'hetal Web](https://translate.bzh/), savet gant Philippe Argouarch.
+Ar meziant-se a vez implijet dre un "terminal" nemetken. Ma gavoc'h gwelloc'h kaout ur meziant grafikel, kit da welet ar raktres nevez [anaouder-gui](https://github.com/gweltou/anaouder-gui) kentoc'h.
 
 ## Petra eo ?
 
