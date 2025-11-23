@@ -8,7 +8,7 @@
 Diorroet eo ar raktres-se a youl vat. Gallout a rit reiñ ho souten gant ur roadenn :
 [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/gweltou/donate)
 
-Ar meziant-se a vez implijet dre un "terminal" nemetken. Ma gavoc'h gwelloc'h kaout ur meziant grafikel, kit da welet ar raktres nevez [anaouder](https://github.com/gweltou/anaouder-gui) kentoc'h.
+Ar meziant-se a vez implijet dre un "terminal" nemetken. Ma gavoc'h gwelloc'h kaout ur meziant grafikel, kit da welet ar raktres nevez [anaouder-gui](https://github.com/gweltou/anaouder-gui) kentoc'h.
 
 ## Petra eo ?
 
