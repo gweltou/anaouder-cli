@@ -1,7 +1,7 @@
 [![pypi version](https://img.shields.io/pypi/v/anaouder)](https://pypi.org/project/anaouder/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
-# Anaouder
+# anaouder-cli
 
 
 <img src="assets/gwenn_ha_du_128x85.png" alt="Breton flag" width="16" /> [E brezhoneg](README.md) | 🇫🇷 [ Lire en français](README-fr.md) | 🇬🇧 Read in English
