@@ -12,7 +12,7 @@ Speech recognition for Breton using Vosk.
 This project is developed by volunteers. You can support it with a donation:
 [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/gweltou/donate)
 
-This is a command line tool. If you rather use a graphical transcription tool instead, try the desktop software [anaouder-gui](https://github.com/gweltou/anaouder-gui).
+⚠️ **This is a command line tool. If you rather use a graphical transcription tool instead, try the desktop software [anaouder-gui](https://github.com/gweltou/anaouder-gui)**
 
 ## About
 

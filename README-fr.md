@@ -10,7 +10,7 @@ Reconnaissance vocale pour le breton avec Vosk.
 Ce projet est développé bénévolement. Vous pouvez le soutenir par un don :
 [![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/gweltou/donate)
 
-Ceci est un outil en ligne de commande. Si vous cherchez l'application graphique, c'est [ici](https://github.com/gweltou/anaouder-gui).
+⚠️ **Ceci est un outil en ligne de commande. Si vous cherchez l'application graphique, c'est [ici](https://github.com/gweltou/anaouder-gui)**
 
 ## Présentation
 

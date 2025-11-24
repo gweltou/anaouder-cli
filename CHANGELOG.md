@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.4]
 
-- New english translated README file (thank you @!)
-- Changed model cache subfolder to './cache/anaouder/models/br'
+- New english translated README file (thanks to @kassschmitt)
 - New `--return-after` parameter (program returns after first utterance)
 
 ## [1.0.3] 2025-03-12
